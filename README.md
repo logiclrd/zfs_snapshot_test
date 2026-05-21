@@ -14,6 +14,8 @@ All paths that are contained in a ZFS snapshot will contain the components `/.zf
 
 5. The `stat` function returns a value `st_dev` that identifies the underlying _device_ containing the path. The `st_dev` values for the mount point, `./.zfs` and `./.zfs/snapshot` within the mount point should all be the same. But, the `st_dev` value for `./.zfs/snapshot/SnapshotName` (including the first path component within the tail following the `/.zfs/snapshot/` components) within the mount point should differ.
 
+All of this is done in a loop, because the path might contain more than one instance of `/.zfs/snapshot/`, and there might one that meets these criteria that isn't the first one in the string.
+
 I don't believe it is possible for a path to satisfy these criteria and not be contained within a ZFS snapshot.
 
 ## Requirements
